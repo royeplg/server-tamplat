@@ -2,11 +2,11 @@ const productDate = require("./product.modules");
 
 async function createProduct(data) {
   try {
+    let res = await productDate.create(data);
+    return res;
   } catch (error) {
     console.log(error);
   }
-  let res = await productDate.create(data);
-  console.log(res);
 }
 
 async function read(filter, proj) {

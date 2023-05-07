@@ -1,50 +1,29 @@
 const productController = require("../DL/product.controller");
 
-async function init() {
-  try {
-    const { status, newProduct } = await createNewProduct(product);
-    console.log(status, newProduct);
-
-    // const { updateStatus, updatedProduct } = await updateProduct(product.id, {inStock: 5});
-    // console.log(updateStatus, updatedProduct);
-  } catch (e) {
-    console.log(e.message);
-  }
-}
-
 async function createNewProduct(productData) {
-  productValidation(productData);
   const exists = await productIsExists(productData.id);
-  if (exists.length > 0) throw new Error("Product id already exists");
+  if (exists) return "the product is exist";
 
   const newProduct = await productController.create(productData);
-  return {
-    status: "success",
-    newProduct,
-  };
+  return newProduct;
 }
 
 async function updateProduct(productId, newData) {
-  productValidation(newData);
-  const exists = await productIsExists(productId);
-  if (exists.length != 1) throw new Error("Invalid search ID");
+  const exists = await productIsExists(productData.id);
+  if (!exists) return "the product is not exist";
 
   await productController.updateMany({ id: productId }, newData);
   const updatedProduct = await productController.read({ id: productId });
-  return {
-    updateStatus: "success",
-    updatedProduct,
-  };
-}
-
-function productValidation(productData) {
-  return true; // Need to add validation
+  return updatedProduct;
 }
 
 async function productIsExists(id) {
   return await productController.read({ id });
 }
 
+module.exports = { createNewProduct, updateProduct };
+
+/// example
 let product = {
   id: 2,
   title: "airplane",
@@ -55,5 +34,3 @@ let product = {
     "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ioY9jnR7w52Y/v0/1200x-1.jpg",
   inStock: 10,
 };
-
-init();

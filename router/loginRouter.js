@@ -3,7 +3,6 @@ const router = express.Router();
 const userService = require("../BL/user.service");
 const auth = require("../auth");
 
-///// בהתחברות - אם הפרטים נכונים - תקבל תוקן
 
 router.post("/register", async (req, res) => {
   try {

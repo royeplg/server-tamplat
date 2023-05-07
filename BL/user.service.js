@@ -3,15 +3,6 @@ const userDL = require("../DL/user/user.controller");
 
 ("https://roye/user/newUser");
 
-const data = {
-  email: "epg@gmail.com",
-  password: "12345",
-  gender: "male",
-  fName: "joni",
-  lName: "david",
-  dob: "1990-10-05T22:00:00.000+00:00",
-};
-
 async function createNewUser(data) {
   try {
     if (!data.email || !data.password || !data.gender) return "data missed";
@@ -20,7 +11,7 @@ async function createNewUser(data) {
 
     if (ifExist[0]) return "the user exist";
 
-    const createUser = await userDL.create(data);
+    await userDL.create(data);
 
     return "user created";
   } catch (error) {
@@ -51,13 +42,6 @@ async function readAllUsers() {
   }
 }
 
-const user = {
-  email: "epg@gmail.com",
-};
-const dataUser = {
-  fName: "ori",
-};
-
 async function updateUser(user, data) {
   try {
     if (!user.email || !data) {
@@ -74,12 +58,12 @@ async function updateUser(user, data) {
 
 module.exports = { updateUser, readAllUsers, createNewUser, ifExist };
 
-//ליצור יוזר חדש
-// לעדכן שדה מסויים
-// למחוק יוזר
-//למצוא יוזר
-
-// createNewUser(data);
-
-// updateUser({ email: "epg@gmail.com" });
-// updateUser(user,dataUser)
+//// example user
+const data = {
+  email: "epg@gmail.com",
+  password: "12345",
+  gender: "male",
+  fName: "joni",
+  lName: "david",
+  dob: "1990-10-05T22:00:00.000+00:00",
+};

@@ -11,7 +11,7 @@ async function createToken(email) {
 async function verifyToken(req, res, next) {
   try {
     let token = req.headers.authorization.replace("Bearer ", "");
-    // console.log(secret);
+
     console.log(token);
     let ifToken = await jwt.verify(token, secret, { expiresIn: "1h" });
     console.log(ifToken);
@@ -23,5 +23,5 @@ async function verifyToken(req, res, next) {
 
 module.exports = { createToken, verifyToken };
 
-// let myToken =
+/// example token
 //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoicm95ZUBycnIuY29tIiwiaWF0IjoxNjgyNjcyMTI5LCJleHAiOjE2ODI2NzU3Mjl9.0ZlHwEI1s75yXg0B8fgiptsfZpY2W3kccbMH0n08BRA";
