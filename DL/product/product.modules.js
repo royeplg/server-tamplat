@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-require("../db");
 
 const productSchema = new mongoose.Schema({
   id: {
@@ -7,7 +6,7 @@ const productSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  titel: {
+  title: {
     type: String,
     required: true,
     trim: true,
@@ -20,13 +19,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  imege: {
+  image: {
     type: String,
-    required: true,
   },
-  reting: {
-    rate: { type: Number, default: 2.5 },
-    count: { type: Number, default: 1 },
+  rating: {
+    rate: { type: Number, default: 0 },
+    count: { type: Number, default: 0 },
   },
   inStock: {
     type: Number,
@@ -39,6 +37,6 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-const productDate = mongoose.model("product", productSchema);
+const productData = mongoose.model("product", productSchema);
 
-module.exports = productDate;
+module.exports = productData;

@@ -14,6 +14,7 @@ const orderSchema = new mongoose.Schema({
     ref: "user",
     required: true,
   },
+
   products: [
     {
       product: {
@@ -24,7 +25,7 @@ const orderSchema = new mongoose.Schema({
       quantity: {
         type: Number,
       },
-      finelPrice: {
+      finalPrice: {
         type: Number,
         require: true,
       },

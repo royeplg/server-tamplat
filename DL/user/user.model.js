@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-require("../db").connect();
+
 
 const userSchema = new mongoose.Schema({
   fName: {
@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
   dob: {
     type: Date,
   },
-  creat: {
+  create: {
     type: Date,
 
     default: Date.now,
@@ -34,14 +34,14 @@ const userSchema = new mongoose.Schema({
   gender: {
     type: String,
     enum: ["male", "female"],
-    required: true,
+    required: false,
   },
-  isActiv: {
+  isActive: {
     type: Boolean,
     default: true,
   },
 });
 
-const userDate = mongoose.model("user", userSchema);
+const userData = mongoose.model("user", userSchema);
 
-module.exports = userDate;
+module.exports = userData;

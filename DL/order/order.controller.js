@@ -1,4 +1,4 @@
-const orderData = require("./order.model");
+const orderData = require("./order.molules");
 
 async function create(data) {
   return await orderData.create(data);

@@ -1,42 +1,85 @@
 const userDL = require("../DL/user/user.controller");
-const productDL = require("../DL/product/product.controller");
+// const productDL = require("../DL/product/product.controller");
 
-async function creatNewUser(data) {
-  //האם יש מייל וסיסמא למשתמש הנכנס?
-  if (!data.email || !data.password) throw "missing data";
-  //האם יש משתמש קיים עם המייל הזה?
-  let user = await userDL.read({ email: data.email });
-  if (user) throw "user is exist";
-  // אם לא צור לי משתמש חדש
-  let res = await userDL.creat(data);
-  return res;
+("https://roye/user/newUser");
+
+const data = {
+  email: "epg@gmail.com",
+  password: "12345",
+  gender: "male",
+  fName: "joni",
+  lName: "david",
+  dob: "1990-10-05T22:00:00.000+00:00",
+};
+
+async function createNewUser(data) {
+  try {
+    if (!data.email || !data.password || !data.gender) return "data missed";
+
+    const ifExist = await userDL.read({ email: data.email });
+
+    if (ifExist[0]) return "the user exist";
+
+    const createUser = await userDL.create(data);
+
+    return "user created";
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-// יצירה של מןצר חדש
-async function creatProduct(data) {
-  //האם יש בערך מהה יחודי וגם מחיר וגם תמונה
-  if (!data.id && !data.price && !data.image) throw "missing data";
-  // בדוק האם קיים ואם כן זרוק שגיאה
-  let product = await productDL.read({ id: data.id });
-  if (user) throw "product is exist";
-  //אם הכל טוב צור מוצר
-  let res = await productDL.creat(data);
-  return res;
+async function ifExist(email) {
+  try {
+    if (!email) return "data missed";
+
+    const ifExist = await userDL.read({ email: email });
+    if (ifExist) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+async function readAllUsers() {
+  try {
+    const users = await userDL.readAll();
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-// עדכון של פרטי מוצר
-async function updateProduct(data) {
-  //בדוק האם קיים מזהה יחודי בערך הנקלט
-  if (!data.id) throw "id missing";
-  // בדוק האם קיים מוצר במאגר שתואם את המזהה הנל
-  let product = await productDL.read({ id: data.id });
-  // אם אין אחד כזה זרוק שגיאה
-  if (!product) throw "product not exist";
-  // אם יש אחד כזה תעדכן
-  let res = await productDL.update({ id: data.id }, data);
+const user = {
+  email: "epg@gmail.com",
+};
+const dataUser = {
+  fName: "ori",
+};
 
-  return res;
+async function updateUser(user, data) {
+  try {
+    if (!user.email || !data) {
+      console.log("data missed");
+      return;
+    }
+
+    const update = await userDL.update(user, data);
+    console.log(update);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-//נשאר לי לבנות הזמנות שכבת מודל וקונטרולר עם חיבור למוצרים וליוזרים ו
-//ואז להוסיף פה פונקציות חסרות
+module.exports = { updateUser, readAllUsers, createNewUser, ifExist };
+
+//ליצור יוזר חדש
+// לעדכן שדה מסויים
+// למחוק יוזר
+//למצוא יוזר
+
+// createNewUser(data);
+
+// updateUser({ email: "epg@gmail.com" });
+// updateUser(user,dataUser)
